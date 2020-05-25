@@ -1,0 +1,20 @@
+#navbase {
+  background-color: blueviolet;
+  width: 100%;
+  z-index: 1;
+}
+
+.topnav {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.5rem 2.5rem;
+  position: relative;
+}
+
+.topnav-sticky {
+  position: fixed;
+  top: 0;
+  left: 0;
+  box-shadow: 1px 1px 1px #222;
+  animation: moveDown 0.5s ease-in-out;
+}
