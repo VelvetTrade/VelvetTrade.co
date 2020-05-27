@@ -25,6 +25,8 @@ class TopNav extends React.Component {
     const styles= 
       {
         container:{
+          fontFamily:`'Open Sans', sans-serif`,
+          color: '#fafafa',
           position: 'absolute',
           top: 0,
           left: 0,
@@ -34,13 +36,11 @@ class TopNav extends React.Component {
           alignItems:'center',
           background: 'blueviolet',
           width: '100%',
-          color: 'white',
-          fontFamily:'Lobster',
-        },
-        logo: {
-          margin: '0 auto',
         },
         body: {
+          fontFamily:`'Open Sans', sans-serif`,
+          fontSize: '1.2rem',
+          color: '#fafafa',
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'center',

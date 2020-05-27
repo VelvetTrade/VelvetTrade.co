@@ -15,30 +15,23 @@ class MenuItem extends React.Component{
   render(){
     const styles={
       container: {
-        opacity: 0,
+        opacity: 1,
         animation: '1s appear forwards',
         animationDelay:this.props.delay,
       },
       menuItem:{
         fontFamily:`'Open Sans', sans-serif`,
         fontSize: '1.2rem',
+        width: '20%',
         padding: '1rem 0',
         margin: '0 5%',
         cursor: 'pointer',
-        color: this.state.hover? 'gray':'#fafafa',
+        background: 'blueviolet',
+        color: this.state.hover ? 'black':'#fafafa',
         transition: 'color 0.2s ease-in-out',
         animation: '0.5s slideIn forwards',
         animationDelay:this.props.delay,
 
-      },
-      line: {
-        width: '90%',
-        height: '1px',
-        background: 'gray',
-        margin: '0 auto',
-        animation: '0.5s shrink forwards',
-        animationDelay:this.props.delay,
-        
       }
     }
     return(

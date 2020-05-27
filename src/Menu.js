@@ -7,10 +7,10 @@ class Menu extends React.Component {
         open: this.props.open? this.props.open:false,
         }
     }
-        
-    componentWillReceiveProps(nextProps){
+
+    UNSAFE_componentWillReceiveProps(nextProps){
         if(nextProps.open !== this.state.open){
-        this.setState({open:nextProps.open});
+            this.setState({open:nextProps.open});
         }
     }
 
@@ -24,7 +24,7 @@ class Menu extends React.Component {
                 width: '100vw',
                 display: 'flex',
                 flexDirection: 'column',
-                background: 'black',
+                background: 'blueviolet',
                 opacity: 0.95,
                 color: '#fafafa',
                 transition: 'height 0.3s ease',
@@ -37,10 +37,10 @@ class Menu extends React.Component {
         return(
         <div style={styles.container}>
             {
-            this.state.open?
-                <div style={styles.menuList}>
-                {this.props.children}
-                </div>:null
+                this.state.open?
+                    <div style={styles.menuList}>
+                    {this.props.children}
+                    </div>:null
             }
         </div>
         )

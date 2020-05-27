@@ -9,9 +9,10 @@ class MenuButton extends React.Component {
         }
     }
     
+    
     componentWillReceiveProps(nextProps){
         if(nextProps.open !== this.state.open){
-        this.setState({open:nextProps.open});
+         this.setState({open:nextProps.open});
         }
     }
     
