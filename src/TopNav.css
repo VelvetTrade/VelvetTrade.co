@@ -1,16 +1,15 @@
+/* Yifan Styles */
 #navbase {
   background-color: blueviolet;
   width: 100%;
   z-index: 1;
 }
-
 .topnav {
   display: flex;
   justify-content: space-between;
   padding: 0.5rem 2.5rem;
   position: relative;
 }
-
 .topnav-sticky {
   position: fixed;
   top: 0;

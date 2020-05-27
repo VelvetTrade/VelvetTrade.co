@@ -4,20 +4,20 @@ class MenuButton extends React.Component {
     constructor(props){
         super(props);
         this.state={
-        open: this.props.open? this.props.open:false,
-        color: this.props.color? this.props.color:'black',
+            open: this.props.open? this.props.open:false,
+            color: this.props.color? this.props.color:'black',
         }
     }
     
     
-    componentWillReceiveProps(nextProps){
+    UNSAFE_ccomponentWillReceiveProps(nextProps){
         if(nextProps.open !== this.state.open){
-         this.setState({open:nextProps.open});
+            this.setState({open:nextProps.open});
         }
     }
     
     handleClick(){
-    this.setState({open:!this.state.open});
+        this.setState({open:!this.state.open});
     }
     
     render(){
@@ -54,13 +54,13 @@ class MenuButton extends React.Component {
             },       
         }
         return(
-        <div style={styles.container} 
-            onClick={this.props.onClick ? this.props.onClick: 
-            ()=> {this.handleClick();}}>
-            <div style={{...styles.line,...styles.lineTop}}/>
-            <div style={{...styles.line,...styles.lineMiddle}}/>
-            <div style={{...styles.line,...styles.lineBottom}}/>
-        </div>
+            <div style={styles.container} 
+                onClick={this.props.onClick ? this.props.onClick: 
+                    ()=> {this.handleClick();}}>
+                <div style={{...styles.line,...styles.lineTop}}/>
+                <div style={{...styles.line,...styles.lineMiddle}}/>
+                <div style={{...styles.line,...styles.lineBottom}}/>
+            </div>
         )
     }
 }

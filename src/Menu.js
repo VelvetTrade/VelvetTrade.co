@@ -4,7 +4,7 @@ class Menu extends React.Component {
     constructor(props){
         super(props);
         this.state={
-        open: this.props.open? this.props.open:false,
+            open: this.props.open? this.props.open:false,
         }
     }
 
@@ -35,14 +35,14 @@ class Menu extends React.Component {
             }
         }
         return(
-        <div style={styles.container}>
-            {
-                this.state.open?
-                    <div style={styles.menuList}>
-                    {this.props.children}
-                    </div>:null
-            }
-        </div>
+            <div style={styles.container}>
+                {
+                    this.state.open?
+                        <div style={styles.menuList}>
+                            {this.props.children}
+                        </div>:null
+                }
+            </div>
         )
     }
 }
