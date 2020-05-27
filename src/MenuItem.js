@@ -1,5 +1,4 @@
 import React from 'react';
-import './MenuItem.css'
 
 class MenuItem extends React.Component{
 	constructor(props){
