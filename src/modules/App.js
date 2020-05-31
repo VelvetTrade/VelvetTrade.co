@@ -1,8 +1,8 @@
 import React from 'react';
-import TopNav from './TopNav';
+import TopNav from './nav/TopNav';
 import PageContent from './PageContent';
 import useSticky from '../miscJS/useSticky';
-import './App.css';
+import '../css/App.css';
 
 function App() {
   const { isSticky, element } = useSticky();
