@@ -1,7 +1,7 @@
 import React from 'react';
 import TopNav from './TopNav';
 import PageContent from './PageContent';
-import useSticky from './useSticky';
+import useSticky from '../miscJS/useSticky';
 import './App.css';
 
 function App() {
