@@ -7,7 +7,7 @@ export default function useSticky ( ) {
   useEffect(() => {
     const handleScroll = () => {
       console.log(`Current Y = ${window.scrollY}, Top = ${element.current.getBoundingClientRect().top}, Bot = ${element.current.getBoundingClientRect().bottom}`);
-      (window.scrollY >= element.current.getBoundingClientRect().top) 
+      (window.scrollY >= element.current.getBoundingClientRect().top && window.scrollY > 0) 
       ? setSicky(true) 
       : setSicky (false)
     };
