@@ -1,15 +1,23 @@
 import React from 'react';
 import TopNav from './nav/TopNav';
 import PageContent from './PageContent';
+import HomePage from './homepage/Homepage';
 import useSticky from '../miscJS/useSticky';
 import '../css/App.css';
+
+import { BrowserRouter as Router, Route } from 'react-router-dom' 
 
 function App() {
   const { isSticky, element } = useSticky();
   return (
     <div className="App">
+      <Router>
       <TopNav sticky={isSticky}/>
-      <PageContent element={element}/>
+        <main>
+          <Route exact={true} path="/" render={()=><PageContent element={element} content={<HomePage/>}/>}/>
+          <Route exact={true} path="/test" render={()=><h1>test</h1>}/>
+        </main>
+      </Router>
     </div>
   );
 }
