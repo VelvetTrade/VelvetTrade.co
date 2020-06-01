@@ -3,6 +3,7 @@ import TopNav from './nav/TopNav';
 import PageContent from './PageContent';
 import HomePage from './homepage/Homepage';
 import Listing from './homepage/Listing';
+import Trade from './homepage/Trade';
 import useSticky from '../miscJS/useSticky';
 import '../css/App.css';
 
@@ -18,6 +19,7 @@ function App() {
           <Route exact={true} path="/" render={()=><PageContent element={element} content={<HomePage/>}/>}/>
           <Route exact={true} path="/test" render={()=><h1>test</h1>}/>
           <Route exact={true} path="/item" render={()=><PageContent element={element} content={<Listing/>}/>}/>
+          <Route exact={true} path="/trade" render={()=><PageContent element={element} content={<Trade/>}/>}/>
         </main>
       </Router>
     </div>
