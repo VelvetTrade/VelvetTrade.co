@@ -24,7 +24,7 @@ function App() {
           </NavItem>
           { userInfo ? 
             <Dropdown nav isOpen={dropdownOpen} toggle={()=> toggleDropdown(!dropdownOpen)}>
-              <DropdownToggle nav caret>{userInfo}</DropdownToggle>
+              <DropdownToggle nav caret>{userInfo.username}</DropdownToggle>
               <DropdownMenu>
                 <DropdownItem header>User Menu</DropdownItem>
                 <DropdownItem>My Listings</DropdownItem>
@@ -41,7 +41,7 @@ function App() {
         {/* <TopNav sticky={isSticky}/> */}
         <main>
           <Route exact={true} path="/" render={()=><PageContent element={element} content={<HomePage userInfo={userInfo}/>}/>}/>
-          <Route exact={true} path="/login" render={()=><LoginPage userInfo={userInfo} changeUserInfo={info=>setUserInfo(info)}/>}/>
+          <Route exact={true} path="/login" render={()=><LoginPage userInfo={userInfo} setUserInfo={info=>setUserInfo(info)}/>}/>
           <Route exact={true} path="/test" render={()=><h1>test</h1>}/>
         </main>
       </Router>
