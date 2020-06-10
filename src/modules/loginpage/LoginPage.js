@@ -22,21 +22,34 @@ class LoginPage extends React.Component {
   onSubmit(e) {
     e.preventDefault();
     // call to validate
-    fetch(CONFIG.apiURL + `/authenticateUser/${this.state.username}/${this.state.password}`)
+    const targetURL = CONFIG.apiURL + `/authenticateUser/${this.state.username}/${this.state.password}`
+    console.log(targetURL)
+    fetch(targetURL, {headers: CONFIG.corsHeader})
       .then(res => {
         if(res.status === 400) {
           this.setState({attemptStatus: "Login Failed, Check Credientials"})
         }
         else if(res.status !== 200 ) {
-          this.setState({attemptStatus: "Network Failure, login server may be down."})
+          this.setState({attemptStatus: `Network Failure: Status ${res.status}, login server may be down.`})
         }
-        res.json()
+        return res.json()
       })
-      .then(json => this.props.setUserInfo(json))
+      .then(json => {
+        console.log(json)
+        if(!json) this.setState({attemptStatus: "Login Failed, Check Credientials"})
+        else {
+          this.props.setUserInfo(json)
+          this.setState({attemptStatus: "finished"})
+        }
+      })
+      .catch(error => {
+        console.error(error)
+        this.setState({attemptStatus: `Network Failure: ${error.message}`})
+      })
   }
 
   render() {
-    if(this.state.userInfo)
+    if(this.state.attemptStatus === "finished")
       return (
         <Redirect to="/"/>
       )
