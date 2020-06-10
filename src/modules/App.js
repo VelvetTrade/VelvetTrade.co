@@ -1,20 +1,47 @@
-import React from 'react';
+import React, {useState} from 'react';
 import TopNav from './nav/TopNav';
 import PageContent from './PageContent';
+import LoginPage from './loginpage/LoginPage'
 import HomePage from './homepage/Homepage';
 import useSticky from '../miscJS/useSticky';
 import '../css/App.css';
 
-import { BrowserRouter as Router, Route } from 'react-router-dom' 
+import { Nav, NavItem, NavLink, Dropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap'
+import { BrowserRouter as Router, Route, Link } from 'react-router-dom' 
 
 function App() {
   const { isSticky, element } = useSticky();
+  const [ userInfo, setUserInfo ] = useState(null)
+  const [ dropdownOpen, toggleDropdown ] = useState(false)
+
   return (
     <div className="App">
       <Router>
-      <TopNav sticky={isSticky}/>
+        <Link to='/'><h2>VelvetTrade</h2></Link>
+        <Nav>
+          <NavItem>
+            
+          </NavItem>
+          { userInfo ? 
+            <Dropdown nav isOpen={dropdownOpen} toggle={()=> toggleDropdown(!dropdownOpen)}>
+              <DropdownToggle nav caret>{userInfo}</DropdownToggle>
+              <DropdownMenu>
+                <DropdownItem header>User Menu</DropdownItem>
+                <DropdownItem>My Listings</DropdownItem>
+                <DropdownItem>My Groups</DropdownItem>
+                <DropdownItem divider />
+                <DropdownItem onClick={()=>setUserInfo(null)}>Log Out</DropdownItem>
+              </DropdownMenu>
+            </Dropdown> :
+            <NavItem>
+              <Link to="/login">Login</Link>
+            </NavItem>
+          }
+        </Nav>
+        {/* <TopNav sticky={isSticky}/> */}
         <main>
-          <Route exact={true} path="/" render={()=><PageContent element={element} content={<HomePage/>}/>}/>
+          <Route exact={true} path="/" render={()=><PageContent element={element} content={<HomePage userInfo={userInfo}/>}/>}/>
+          <Route exact={true} path="/login" render={()=><LoginPage userInfo={userInfo} changeUserInfo={info=>setUserInfo(info)}/>}/>
           <Route exact={true} path="/test" render={()=><h1>test</h1>}/>
         </main>
       </Router>
