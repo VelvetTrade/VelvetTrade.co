@@ -50,9 +50,9 @@ class GroupSearchPage extends React.Component {
   }
 
   renderResults () {
-    if(this.state.searchStatus === "initial") return null
+    // if(this.state.searchStatus === "initial") return null
     // else if(this.state.searchStatus === "pending") return <Spinner/>
-    else if(this.state.results.length === 0) return <p>No results found</p>
+    if(this.state.results.length === 0) return <p>No results found</p>
     else return this.state.results.map(group => (
       <div className="groupDisplayDiv" key={group.id}>
         <Link to={`/group/${group.id}`}><h3>{`${group.name}(${group.id})`}</h3></Link>

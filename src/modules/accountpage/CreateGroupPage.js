@@ -27,16 +27,15 @@ class createGroupPage extends React.Component {
       this.setState({attemptStatus: "Password does not match confirmpassword"})
       return;
     }
-    const targetURL = CONFIG.apiURL + `/createGroup`
+    const targetURL = CONFIG.apiURL + `/createGroup/${this.props.userInfo.id}`
 
     let headers = Object.assign(CONFIG.corsHeader)
     headers['Content-Type'] = "application/json"
     let body = {
       name: this.state.username,
-      password: this.state.password,
+      password: this.state.password ? this.state.password : "dum dum fill",
       isPrivate: this.state.isPrivate,
-      description: this.state.description,
-      userId: this.props.userInfo.id
+      description: this.state.description
     }
     
     fetch(targetURL, {

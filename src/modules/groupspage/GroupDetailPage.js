@@ -1,7 +1,8 @@
 import React from 'react';
 import { Link, Redirect } from 'react-router-dom'
-import { Card, Button, CardTitle, CardText, CardImg, CardBody, CardSubtitle } from 'reactstrap';
+import { Card, Button, CardTitle, CardText, CardImg, CardBody, CardSubtitle, Input } from 'reactstrap';
 import CONFIG from '../config'
+import '../../css/GroupDetailPage.css'
 
 const fetch = require('node-fetch')
 
@@ -14,6 +15,7 @@ class GroupDetailPage extends React.Component {
       group: null,
       status: 0,
       redirect: "",
+      joinPW: "",
       memberList: []
     };
     
@@ -59,6 +61,72 @@ class GroupDetailPage extends React.Component {
     ))
   }
 
+  leaveGroup() {
+    const targetURL = CONFIG.apiURL + `/removeUserFromGroupById/${this.state.group.id}/${this.props.userInfo.id}`
+    fetch(targetURL, {headers: CONFIG.corsHeader, method: "DELETE"})
+      .then(res => {
+        if(res.status !== 200) {
+          return Promise.reject(res.message)
+        }
+        else this.setState({redirect: "/"})
+      })
+      .catch(error => {
+        this.setState({
+          error: error.message
+        })
+      })
+  }
+
+  joinGroup() {
+    const targetURL = CONFIG.apiURL + `/validateUserEntry/${this.state.group.id}/${this.props.userInfo.id}/${this.state.joinPW ? this.state.joinPW : 'none'}`
+    fetch(targetURL, {headers: CONFIG.corsHeader})
+      .then(res => {
+        if(res.status === 400) {
+          return Promise.reject("Invalid Password")
+        }
+        if(res.status !== 200) {
+          return Promise.reject(res.message)
+        }
+        else this.setState({redirect: "/"})
+      })
+      .catch(error => {
+        this.setState({
+          error: error.message
+        })
+      })
+  }
+
+  renderUserControl() {
+    if(!this.props.userInfo) return <p>Sign in for more options.</p>
+    if(this.state.group.members.includes(this.props.userInfo.id)) {
+      //User is in the group
+      return <div>
+        <p>You are currently in this group.</p>
+        <Button color="danger" onClick={()=>this.leaveGroup()} className="groupAccessButton leave">Leave Group</Button>
+      </div>
+    }
+    else if(this.state.group.private){
+      // User is not in the private group and needs a password
+      return (
+        <div>
+          <p>This group is private.</p>
+          <p>You must enter a password to join.</p>
+          <Input type="password" placeholder="Group Password" value={this.state.joinPW} className="pwField" onChange={(e)=>this.setState({joinPW: e.target.value})}/>
+          <Button color="primary" onClick={()=>this.joinGroup()} className="groupAccessButton join">Join</Button>
+        </div> 
+      )
+    }
+    else {
+      //User is not part of the public group, and can join at will
+      return (
+        <div>
+          <p>This group is public. You can join and leave at any time.</p>
+          <Button color="primary" onClick={()=>this.joinGroup()} className="groupAccessButton join">Join</Button>
+        </div>
+      )
+    }
+  }
+
   render() {
     if(this.state.redirect) return <Redirect to={this.state.redirect}/>
 
@@ -70,12 +138,24 @@ class GroupDetailPage extends React.Component {
 
     return (
       <div className="GroupDetailPage">
-        <h3>{`Group Details: ${this.state.group.name}`}</h3>
-        <h5>{this.state.group.description}</h5>
-        <p>{this.state.group.isPrivate ? "Private Group" : "Public Group"}</p>
-        <hr/>
-        <h6>Members:</h6>
-        {this.state.memberList.map(name=><p key={name}>{name}</p>)} 
+        <div className="UpperContainer">
+          <div className="BasicDetailContainer">
+            <h3>{`Group Details: ${this.state.group.name}`}</h3>
+            <h5>{this.state.group.description}</h5>
+            <p>{this.state.group.private ? "Private Group" : "Public Group"}</p>
+          </div>
+          <hr/>
+          <div className="memberList">
+            <h4 className="memberListTitle">Members:</h4>
+            {this.state.memberList.map(name=><p key={name} className="memberListEntry">{name}</p>)} 
+          </div>
+        </div>
+        
+        
+        <div className={`userAccessControl ${this.props.userInfo && this.state.group && this.state.group.members.includes(this.props.userInfo.id) ? 'leave' : 'join'}`}>
+            {this.renderUserControl()}
+            {this.state.error ? <p style={{color:"red"}}>{this.state.error}</p> : null}
+          </div>
       </div>
     );
   }
