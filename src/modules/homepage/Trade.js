@@ -219,7 +219,7 @@ class Trade extends React.Component {
     if(!this.state.item1) {
       return <p>Loading Items...</p>
     }
-    if(!this.props.userInfo || this.props.userInfo.id !== this.state.item1.userId) {
+    if(!(this.props.userInfo && this.props.userInfo.id === this.state.item1.userId)) {
       return (
       <div>
         <p>You cannot access this trading page as you are not the owner of the listing.</p>
