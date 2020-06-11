@@ -1,6 +1,4 @@
 import React from 'react';
-import { withRouter } from "react-router-dom";
-import PageContent from './../PageContent'
 import './../../css/App.css';
 import './../../css/Listing.css';
 import CONFIG from '../config';
