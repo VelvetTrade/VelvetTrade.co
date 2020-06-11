@@ -113,6 +113,7 @@ class Listing extends React.Component {
     }
 
     makeCards (posts) {
+      if(this.state.item.acceptedOfferId) return <p>This trade post is completed.</p>
       if(!posts) return <p>Loading Offers...</p>
       if(posts.length === 0) return <p>No Offers Found.</p>
       if(this.state.attemptStatus) return <p>{this.state.attemptStatus}</p>;
@@ -144,6 +145,7 @@ class Listing extends React.Component {
               <div className='description'>
                   <h3>{this.state.item.itemTitle}</h3>
                   <ul>
+                      <li>Status: {this.state.item.acceptedOfferId ? "Completed" : "Incomplete"}</li>
                       <li>Seller: {this.state.user}</li>
                       <li>Price: ${this.state.item.price}</li>
                       <li>{this.state.item.description}</li>
@@ -151,10 +153,9 @@ class Listing extends React.Component {
                   </ul>
                   <div>
                     {/* Button should be disabled if the user is not signed in, is the original poster, or the item isn't loaded yet */}
-                    {/* <Button disabled={!this.props.userInfo || !this.state.item || (this.props.userInfo && this.props.userInfo.userId === this.state.item.userId)}>Make Offer</Button> */}
-                    {/* {this.props.userInfo ? null : <p>Sign in to make an offer!</p> } */}
-                    <Button>Make Offer</Button>
-                    {this.props.userInfo && this.state.item && this.props.userInfo.userId === this.state.item.userId ? <p>Cannot Make Offer on own post</p> : null}
+                    <Button disabled={!this.props.userInfo || !this.state.item || (this.props.userInfo && this.props.userInfo.id === this.state.item.userId)}>Make Offer</Button>
+                    {this.props.userInfo ? null : <p>Sign in to make an offer!</p> }
+                    {this.props.userInfo && this.state.item && this.props.userInfo.id === this.state.item.userId ? <p>Cannot make an offer on your own post</p> : null}
                   </div>
               </div>
             </div>

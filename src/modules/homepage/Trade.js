@@ -1,8 +1,8 @@
 import React from 'react';
-import './../../css/App.css';
-import './../../css/Trade.css';
-import './../../css/Listing.css';
+import { Link } from 'react-router-dom'
+import { Button, Spinner } from 'reactstrap'
 import CONFIG from '../config';
+import '../../css/Trade.css'
 
 const fetch = require('node-fetch');
 
@@ -16,6 +16,7 @@ class Trade extends React.Component {
       item2: null,
       user2: "",
       attemptStatus: "",
+      tradeStatus: "normal"
     }
   }
 
@@ -140,35 +141,107 @@ class Trade extends React.Component {
         })
   }
 
+  // Activated when the accept button is pressed
+  accept() {
+    const targetURL = CONFIG.apiURL + `/acceptTrade/${this.props.match.match.params.groupId}/${this.state.item1.id}/${this.state.item2.id}`
+    this.setState({tradeStatus: 'pending'})
+    fetch(targetURL, {headers: CONFIG.corsHeader, method: "POST"})
+      .then(res => {
+        if(res.status != 200) {
+          this.setState({
+            tradeStatus: "failed",
+            error: res.message
+          })
+        }
+        else this.setState({tradeStatus: "completed"})
+      })
+      .catch(error => {
+        this.setState({
+          tradeStatus: "failed",
+          error: error.message
+        })
+      })
+  }
+
+  // Activated when the reject button is pressed
+  reject() {
+    
+  }
+
+  makeTradePendingDiv (status) {
+    switch(status) {
+      case "pending":
+        return (
+          <div>
+            <Spinner color="primary"/>
+            <p>Requesting...</p>
+          </div>
+        );
+      case "failed":
+        return <p style={{color:"red"}}>Request Failed: {this.state.error ? this.state.error : "Unknown Error"}</p>
+      case "completed":
+        return (
+          <div>
+            <p>Trade Successfully Completed</p>
+            <Link to={`/item/${this.props.match.match.params.groupId}/${this.props.match.match.params.postId1}`}>Return to Post</Link>
+          </div>
+        )
+      case "rejected":
+        return (
+          <div>
+            <p>Trade Successfully Rejected</p>
+            <Link to={`/item/${this.props.match.match.params.groupId}/${this.props.match.match.params.postId1}`}>Return to Post</Link>
+          </div>
+        )
+    }
+  }
+
   render() {
+    if(!this.state.item1) {
+      return <p>Loading Items...</p>
+    }
+    // if(!this.props.userInfo || this.props.userInfo.id !== this.state.item1.userId) {
+    //   return (
+    //   <div>
+    //     <p>You cannot access this trading page as you are not the owner of the listing.</p>
+    //     <Link to="/">Back to Home Page</Link>
+    //   </div>
+    //   )
+    // }
     console.log(this.state);
     if(this.state.item1 != null && this.state.item2 != null) {
       return (
-        <div className='grid-container'>
-          <div className='leftItem'>
-            <h3>{this.state.user1}</h3>
-            <div className='card'>
-              <p>{this.state.item1.itemTitle}</p>
-              <div className='image'>
-                <p>IMAGE PLACEHOLDER</p>
+        <div>
+          <div id="backLink">
+            <Link to={`/item/${this.props.match.match.params.groupId}/${this.props.match.match.params.postId1}`}>{"< Return to Post"}</Link>
+          </div>
+          <div className='grid-container'>
+            <div className='leftItem'>
+              <h3>Original Poster: {this.state.user1}</h3>
+              <div className='card'>
+                <h4>{this.state.item1.itemTitle}</h4>
+                <img className='image' src="" alt={`img<${this.state.item1.itemTitle}>`}/>
+                <p style={{color:"gray"}}>{this.state.item1.description}</p>
+                <hr/>
+                <p>Looking for: {this.state.item1.desiredItems}</p>
               </div>
-              <p>Looking for: {this.state.item1.desiredItems}</p>
             </div>
-          </div>
 
-          <div className='controls'>
-            <button>Accept Offer!</button>
-            <button>Reject Offer!</button>
-          </div>
+            <div className='controls'>
+              <Button className='controlButton' color="success" onClick={()=>this.accept()}>Accept Offer!</Button>
+              <Button className='controlButton' color="danger" onClick={()=>this.reject()}>Reject Offer!</Button>
+              {this.makeTradePendingDiv(this.state.tradeStatus)}
+            </div>
 
-          <div className='rightItem'>
-            <h3>{this.state.user2}</h3>
-            <div className='card'>
-              <p>{this.state.item2.itemTitle}</p>
-              <div className='image'>
-                <p>IMAGE PLACEHOLDER</p>
+            <div className='rightItem'>
+              <h3>Offerer: {this.state.user2}</h3>
+              <div className='card'>
+                <h4>{this.state.item2.itemTitle}</h4>
+                <img className='image' src="" alt={`img<${this.state.item2.itemTitle}>`}/>
+                <p style={{color:"gray"}}>{this.state.item2.description}</p>
+                <hr/>
+                <p>Looking for: {this.state.item2.desiredItems}</p>
               </div>
-              <p>Looking for: {this.state.item2.desiredItems}</p>
             </div>
           </div>
         </div>

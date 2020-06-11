@@ -1,9 +1,17 @@
-.ListingCard {
+.card {
   margin: 10px;
   font-weight: normal;
+  width: 100%;
+  padding: 20px;
+  background-color: lightgray;
 }
 
 table
 {
-    table-layout: fixed;
+  table-layout: fixed;
+  width: 100%;
+}
+
+td {
+  width: 33%;
 }

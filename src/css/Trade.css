@@ -1,7 +1,20 @@
+#backLink {
+  position: relative;
+  width: 170px;
+  left: 20px;
+  padding: 20px;
+}
+
 .card {
+  width: 70%;
   padding: 50px;
-  margin: 50px;
-  float: inherit;
+  margin: auto;
+  float: none;
+}
+
+.controlButton {
+  margin:10px;
+  width: 60%;
 }
 
 /* The sizing isn't very intelligent and makes everything a square */
@@ -11,24 +24,36 @@
 }
 
 .leftItem {
-  padding: 50px;
-  margin: 50px;
+  width: 40%;
+  height: 100%;
   float: left;
+  border: 5px solid lightblue;
+  overflow-x: auto;
 }
 
 .rightItem {
-  padding: 50px;
-  margin: 50px;
+  width: 40%;
+  height: 100%;
   float: left;
+  border: 5px solid lightblue;
+  overflow-x: auto;
 }
 
 .controls {
-  padding: 50px;
-  margin: 50px;
+  width: 19%;
+  height: 100%;
   float: left;
 }
 
 .grid-container {
-  display: grid;
-  grid-template-columns: auto auto auto;
+  padding: 20px;
+  background-color: azure;
+  overflow-x: auto;
+}
+
+.image {
+  background-color: lightgray;
+  width: 200px;
+  height: 200px;
+  margin: auto ;
 }

@@ -75,16 +75,24 @@ class Homepage extends React.Component {
           else return res.json()
       })
       .then(post=>{
-        if(post.isOffer || post.acceptedOfferId) return Promise.resolve(null);
-        return Promise.resolve(post)
+        if(post.offer || post.acceptedOfferId) return null;
+        return post;
       })
   }
 
   makeCards (posts) {
     if(!posts) return <p>Loading Posts...</p>
     if(posts.length === 0) return <p>No posts in this group.</p>
+    // Apply cardStyles inline to override bootstrap
+    const CardStyle = {
+        height: "100%",
+        margin: 10,
+        padding: 5,
+        backgroundColor: "#E3E3E3",
+        width: "80%"
+    }
     let allCards = posts.map(post => post ? (
-      <Card key={post.Id} className="ListingCard">
+      <Card key={post.Id} className="ListingCard" style={CardStyle} onClick={()=>this.setState({redirect: `/item/${this.state.activeTab}/${post.id}`})}>
         <CardImg top width="100%" src="" alt={`img<${post.itemTitle}>`} />
         <CardBody>
           <CardTitle><Link to={`/item/${this.state.activeTab}/${post.id}`}>{post.itemTitle}</Link></CardTitle>
@@ -96,7 +104,7 @@ class Homepage extends React.Component {
     let finalCardStack = [];
     while(allCards.length > 0) {
       let row = [];
-      for(let i = 0; i < 4; i++) {
+      for(let i = 0; i < 3; i++) {
         if(allCards.length <= 0) break;
         row.push(
           <th key={i}>{allCards.shift()}</th>
@@ -126,7 +134,10 @@ class Homepage extends React.Component {
   }
 
   render() {
-    if(this.state.redirect) return <Redirect to={this.state.redirect}/>
+    if(this.state.redirect) {
+      this.setState({redirect: ""})
+      return <Redirect to={this.state.redirect}/>
+    }
 
     if(!this.props.userInfo)
       return (
