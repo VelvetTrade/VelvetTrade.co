@@ -1,5 +1,5 @@
-import React, {useState} from 'react';
-import '../../css/Homepage.css';
+import React from 'react';
+import '../../css/LoginPage.css';
 import { Redirect } from 'react-router-dom'
 import { Button, Form, FormGroup, Label, Input, FormText } from 'reactstrap';
 import CONFIG from '../config'
@@ -53,6 +53,10 @@ class LoginPage extends React.Component {
       return (
         <Redirect to="/"/>
       )
+    else if (this.state.attemptStatus === "signup")
+      return (
+        <Redirect to="/signup"/>
+      )
 
     return (
       <div className="LoginPage">
@@ -66,7 +70,11 @@ class LoginPage extends React.Component {
             <Input type="password" name="password" id="password" placeholder="Password" onChange={e=>this.setState({password: e.target.value})} />
           </FormGroup>
           {this.state.attemptStatus ? <FormText color="danger">{this.state.attemptStatus}</FormText> : null}
-          <Button type="submit">Login</Button>
+          <FormGroup>
+            <Button type="button" onClick={() => this.setState({attemptStatus:"signup"})}>Sign Up</Button>
+
+            <Button type="submit">Login</Button>
+          </FormGroup>
         </Form>
       </div>
     );
