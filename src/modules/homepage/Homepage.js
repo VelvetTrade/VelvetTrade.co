@@ -131,6 +131,7 @@ class Homepage extends React.Component {
         <Nav tabs>
           {this.makeGroupTabs(this.props.userInfo.groups)}
         </Nav>
+        <Link to={`/group/${this.state.activeTab}`}>Group Details</Link>
         {this.makeCards(this.state.posts)}
       </div>
     );

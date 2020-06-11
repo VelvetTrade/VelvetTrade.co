@@ -10,6 +10,7 @@ import '../css/App.css';
 
 import { Nav, NavItem, NavLink, Dropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap'
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom' 
+import GroupDetailPage from './groupspage/GroupDetailPage';
 
 function App() {
   // const { isSticky, element } = useSticky();
@@ -46,6 +47,7 @@ function App() {
           <Route exact={true} path="/signup" render={()=><SignupPage userInfo={userInfo} />}/>
           <Route exact={true} path="/createGroup" render={()=><CreateGroupPage userInfo={userInfo} />}/>
           <Route exact={true} path="/login" render={()=><LoginPage userInfo={userInfo} setUserInfo={info=>setUserInfo(info)}/>}/>
+          <Route exact={true} path="/group/:groupId" render={match=><GroupDetailPage userInfo={userInfo} match={match} setUserInfo={info=>setUserInfo(info)}/>}/>
           <Route exact={true} path="/test" render={()=><h1>test</h1>}/>
         </main>
       </Router>
