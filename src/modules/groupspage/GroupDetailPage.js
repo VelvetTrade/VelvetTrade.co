@@ -1,5 +1,5 @@
 import React from 'react';
-import '../../css/Homepage.css';
+import '../../css/HomePage.css';
 import { Link, Redirect } from 'react-router-dom'
 import { TabPane, Nav, NavItem, NavLink, Card, Button, CardTitle, CardText, CardImg, CardBody, CardSubtitle } from 'reactstrap';
 import CONFIG from '../config'
@@ -21,8 +21,7 @@ class GroupDetailPage extends React.Component {
   }
 
   componentDidMount() {
-    console.log(this.props.match);
-    const targetURL = CONFIG.apiURL + `/getGroup/${this.props.match.match.params.groupId}`;
+    const targetURL = CONFIG.apiURL + `/getGroup/${this.props.routeInfo.match.params.groupId}`;
     fetch(targetURL, {headers: CONFIG.corsHeader})
       .then(res => {
         this.setState({status: res.status})
