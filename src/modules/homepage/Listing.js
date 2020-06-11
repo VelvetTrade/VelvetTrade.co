@@ -103,9 +103,9 @@ class Listing extends React.Component {
     }
 
     makeCards (posts) {
-      if(this.state.item.acceptedOfferId) return <p>This trade post is completed.</p>
       if(!posts) return <p>Loading Offers...</p>
       if(posts.length === 0) return <p>No Offers Found.</p>
+      if(this.state.item.acceptedOfferId) posts = posts.filter(post => post.id === this.state.item.acceptedOfferId);
       if(this.state.attemptStatus) return <p>{this.state.attemptStatus}</p>;
       let allCards = posts.map(post => post ? (
         <div key={post.id}>
@@ -157,6 +157,7 @@ class Listing extends React.Component {
               <div className='offers'>
                 <h3 id="offerTitle">Offers</h3>
                 <hr/>
+                {this.state.item.acceptedOfferId ? <p>This listing has been fulfilled. Following is the confirmed offer.</p> : null}
                 {this.makeCards(this.state.offers)}
               </div>
           </div>
