@@ -16,7 +16,6 @@ class createGroupPage extends React.Component {
       password: "",
       isPrivate: false,
       attemptStatus: "",
-      isPrivate: "",
       description: ""
     }
   }

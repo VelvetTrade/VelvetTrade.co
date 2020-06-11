@@ -1,78 +1,22 @@
 import React, {useState} from 'react';
-import TopNav from './nav/TopNav';
-import PageContent from './PageContent';
 import LoginPage from './loginpage/LoginPage'
 import HomePage from './homepage/Homepage';
 import SignupPage from './loginpage/SignPage';
 import CreateGroupPage from './accountpage/CreateGroupPage';
 import Listing from './homepage/Listing';
 import Trade from './homepage/Trade';
-import useSticky from '../miscJS/useSticky';
 import GroupDetailPage from './groupspage/GroupDetailPage';
 import CreateListingPage from './accountpage/CreateListingPage';
 import RSNav from './nav/RSNav'
 import '../css/App.css';
 
-import { Nav, NavItem, NavLink, Dropdown, DropdownToggle, DropdownMenu, DropdownItem, Navbar, NavbarBrand, NavbarToggler, Collapse, UncontrolledDropdown, NavbarText } from 'reactstrap'
-import { BrowserRouter as Router, Route, Link, Redirect } from 'react-router-dom' 
+import { BrowserRouter as Router, Route } from 'react-router-dom' 
 function App() {
-  // const { isSticky, element } = useSticky();
   const [ userInfo, setUserInfo ] = useState(null)
 
   return (
     <div className="App">
       <Router>
-        {/* <Navbar color="light" light expand="md">
-          <NavbarBrand href="/">VelvetTrade</NavbarBrand>
-          <NavbarToggler onClick={()=>toggleDropdown(!dropdownOpen)} />
-          <Collapse isOpen={dropdownOpen} navbar>
-            <Nav className="mr-auto" navbar>
-              <NavItem>
-                <NavLink onClick={()=>setRedirectLink("/createGroup")}>Create a Group</NavLink>
-              </NavItem>
-              <NavItem>
-                <NavLink href="https://github.com/reactstrap/reactstrap">GitHub</NavLink>
-              </NavItem>
-              
-            </Nav>
-            {
-                userInfo ? 
-                <UncontrolledDropdown nav inNavbar>
-                  <DropdownToggle nav caret>{userInfo.username}</DropdownToggle>
-                  <DropdownMenu right>
-                    <DropdownItem header>User Menu</DropdownItem>
-                    <DropdownItem>My Listings</DropdownItem>
-                    <DropdownItem>My Groups</DropdownItem>
-                    <DropdownItem divider />
-                    <DropdownItem onClick={()=>setUserInfo(null)}>Log Out</DropdownItem>
-                  </DropdownMenu>
-                </UncontrolledDropdown>
-                : <NavLink onClick={()=>setRedirectLink("/login")}>Login</NavLink>
-              }
-          </Collapse>
-        </Navbar> */}
-        {/* <Link to='/'><h2>VelvetTrade</h2></Link>
-        <Nav>
-          <NavItem>
-            <Link to="/createGroup">Create a Group</Link>
-          </NavItem>
-          { userInfo ? 
-            <Dropdown nav isOpen={dropdownOpen} toggle={()=> toggleDropdown(!dropdownOpen)}>
-              <DropdownToggle nav caret>{userInfo.username}</DropdownToggle>
-              <DropdownMenu>
-                <DropdownItem header>User Menu</DropdownItem>
-                <DropdownItem>My Listings</DropdownItem>
-                <DropdownItem>My Groups</DropdownItem>
-                <DropdownItem divider />
-                <DropdownItem onClick={()=>setUserInfo(null)}>Log Out</DropdownItem>
-              </DropdownMenu>
-            </Dropdown> :
-            <NavItem>
-              <Link to="/login">Login</Link>
-            </NavItem>
-          }
-        </Nav> */}
-        {/* <TopNav sticky={isSticky}/> */}
         <RSNav userInfo={userInfo} setUserInfo={info=>setUserInfo(info)}/>
         <main>
           <Route exact={true} path="/" render={()=><HomePage userInfo={userInfo}/>}/>
