@@ -27,6 +27,7 @@ function App() {
           <Route exact={true} path="/item/:groupId/:postId" render={match=><Listing match={match} userInfo={userInfo}/>}/>
           <Route exact={true} path="/trade/:groupId/:postId1/:postId2" render={match=><Trade match={match} userInfo={userInfo}/>}/>
           <Route exact={true} path="/createListing/:groupId" render={routeInfo=><CreateListingPage userInfo={userInfo} routeInfo={routeInfo}/>}/>
+          <Route exact={true} path="/createOffer/:groupId/:parentId" render={routeInfo=><CreateListingPage userInfo={userInfo} routeInfo={routeInfo}/>}/>
           <Route exact={true} path="/test" render={()=><h1>test</h1>}/>
         </main>
       </Router>

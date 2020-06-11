@@ -167,7 +167,7 @@ class Trade extends React.Component {
   reject() {
     const targetURL = CONFIG.apiURL + `/deletePosting/${this.props.match.match.params.groupId}/${this.state.item2.id}`
     this.setState({tradeStatus: 'pending'})
-    fetch(targetURL, {headers: CONFIG.corsHeader, method: "POST"})
+    fetch(targetURL, {headers: CONFIG.corsHeader, method: "DELETE"})
       .then(res => {
         if(res.status !== 200) {
           this.setState({
@@ -210,6 +210,8 @@ class Trade extends React.Component {
             <Link to={`/item/${this.props.match.match.params.groupId}/${this.props.match.match.params.postId1}`}>Return to Post</Link>
           </div>
         )
+      default:
+        return null;
     }
   }
 

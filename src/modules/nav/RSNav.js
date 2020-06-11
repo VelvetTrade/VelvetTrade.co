@@ -41,8 +41,8 @@ function RSNav (props) {
                     <RSNavLink to="/test" tag={RRNavLink}>My Groups</RSNavLink>
                   </DropdownItem>
                   <DropdownItem divider />
-                  <DropdownItem onClick={()=>props.setUserInfo(null)}>
-                    Sign Out
+                  <DropdownItem onClick={()=>props.setUserInfo(null)} style={{color:"#DC3545"}}>
+                    <p>Log Out</p>
                   </DropdownItem>
                 </DropdownMenu>
               </UncontrolledDropdown>

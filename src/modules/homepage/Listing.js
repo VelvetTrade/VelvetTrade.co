@@ -19,13 +19,11 @@ class Listing extends React.Component {
     }
 
     componentDidMount() {
-      console.log(this.props.match.match.params);
       let groupId = this.props.match.match.params.groupId;
       let postId = this.props.match.match.params.postId;
 
       // Fetch item data
       let targetURL = CONFIG.apiURL + `/getPostingById/${groupId}/${postId}`;
-      console.log(targetURL);
       fetch(targetURL, { headers: CONFIG.corsHeader })
         .then(res => {
           if(res.status === 404) {
@@ -37,7 +35,6 @@ class Listing extends React.Component {
           return res.json();
         })
         .then(json => {
-          console.log(json)
           if(!json) this.setState({ atemptStatus: "Item not found" })
           else {
             return json;
@@ -48,12 +45,11 @@ class Listing extends React.Component {
           this.setState({ attemptStatus: `Network Failure: ${error.message}` });
         })
         .then(json => {
-          console.log(json);
+          if(!json) return;
           this.setState({ item: json });
 
           // Fetch user info
           targetURL = CONFIG.apiURL + `/getUserById/${json.userId}`
-          console.log(targetURL)
           fetch(targetURL, { headers: CONFIG.corsHeader })
             .then(res => {
               if(res.status === 404) {
@@ -65,7 +61,6 @@ class Listing extends React.Component {
               return res.json();
             })
             .then(json => {
-              console.log("res: " + json)
               if(!json) this.setState({ ttemptStatus: "Item not found" })
               else {  
                 this.setState({ user: json.username });
@@ -78,15 +73,10 @@ class Listing extends React.Component {
             return json;
         })
         .then(json => {
-          console.log('time to get offers')
-          console.log(json);
-          targetURL = CONFIG.apiURL + `/getPostingsByIds/${this.state.groupId}/${this.state.item.offers.join()}`;
-
+          if(!json) return;
           // Fetch Offers info
-          if(json.offers) {
+          if(json.offers && json.offers.length > 0) {
             const batchListingTargetURL = CONFIG.apiURL + `/getPostingsByIds/${this.props.match.match.params.groupId}/${json.offers.join()}`
-            console.log("end");
-            console.log(targetURL)
             fetch(batchListingTargetURL, { headers: CONFIG.corsHeader })
               .then(res => {
                 if(res.status === 404) {
@@ -134,7 +124,6 @@ class Listing extends React.Component {
     }
 
     render() {
-      console.log(this.state);
       if(this.state.item != null) {
         return (
           <div className='Listing'>
@@ -145,7 +134,7 @@ class Listing extends React.Component {
               <div className='description'>
                   <h3>{this.state.item.itemTitle}</h3>
                   <ul>
-                      <li>Status: {this.state.item.acceptedOfferId ? "Completed" : "Incomplete"}</li>
+                      <li>Status: {this.state.item.acceptedOfferId ? (this.state.item.offer ? "Offer" : "Completed") : "Incomplete"}</li>
                       <li>Seller: {this.state.user}</li>
                       <li>Price: ${this.state.item.price}</li>
                       <li>{this.state.item.description}</li>
@@ -153,7 +142,13 @@ class Listing extends React.Component {
                   </ul>
                   <div>
                     {/* Button should be disabled if the user is not signed in, is the original poster, or the item isn't loaded yet */}
-                    <Button disabled={!this.props.userInfo || !this.state.item || (this.props.userInfo && this.props.userInfo.id === this.state.item.userId)}>Make Offer</Button>
+                    <Button 
+                      to={`/createOffer/${this.props.match.match.params.groupId}/${this.state.item.id}`}
+                      disabled={!this.props.userInfo || !this.state.item || (this.props.userInfo && this.props.userInfo.id === this.state.item.userId)} 
+                      tag={Link}
+                    >
+                      Make Offer
+                    </Button>
                     {this.props.userInfo ? null : <p>Sign in to make an offer!</p> }
                     {this.props.userInfo && this.state.item && this.props.userInfo.id === this.state.item.userId ? <p>Cannot make an offer on your own post</p> : null}
                   </div>

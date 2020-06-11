@@ -74,9 +74,14 @@ class Homepage extends React.Component {
           }
           else return res.json()
       })
-      .then(post=>{
-        if(post.offer || post.acceptedOfferId) return null;
-        return post;
+      .then(posts=>{
+        let filteredPosts = []
+        for(let post of posts) {
+          if(post && !post.offer && !post.acceptedOfferId) filteredPosts.push(post);
+          else console.log(post.id)
+        }
+        
+        return filteredPosts
       })
   }
 
@@ -115,7 +120,7 @@ class Homepage extends React.Component {
     return (
       <table>
         <tbody>
-          {finalCardStack}
+          {finalCardStack ? finalCardStack : "No posts in this group"}
         </tbody>
       </table>
     )
