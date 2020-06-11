@@ -1,0 +1,10 @@
+.groupDisplayDiv>p {
+  text-align: left;
+}
+
+.groupDisplayDiv {
+  padding: 30px;
+  margin : 10px;
+  background-color: azure;
+  border: 5px solid lightskyblue;
+}

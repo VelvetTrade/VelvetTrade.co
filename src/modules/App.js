@@ -6,6 +6,7 @@ import CreateGroupPage from './accountpage/CreateGroupPage';
 import Listing from './homepage/Listing';
 import Trade from './homepage/Trade';
 import GroupDetailPage from './groupspage/GroupDetailPage';
+import GroupSearchPage from './groupspage/GroupSearchPage';
 import CreateListingPage from './accountpage/CreateListingPage';
 import RSNav from './nav/RSNav'
 import '../css/App.css';
@@ -22,6 +23,7 @@ function App() {
           <Route exact={true} path="/" render={()=><HomePage userInfo={userInfo}/>}/>
           <Route exact={true} path="/signup" render={()=><SignupPage userInfo={userInfo} />}/>
           <Route exact={true} path="/createGroup" render={()=><CreateGroupPage userInfo={userInfo} />}/>
+          <Route exact={true} path="/findGroup" render={()=><GroupSearchPage userInfo={userInfo} />}/>
           <Route exact={true} path="/login" render={()=><LoginPage userInfo={userInfo} setUserInfo={info=>setUserInfo(info)}/>}/>
           <Route exact={true} path="/group/:groupId" render={routeInfo=><GroupDetailPage userInfo={userInfo} routeInfo={routeInfo} setUserInfo={info=>setUserInfo(info)}/>}/>
           <Route exact={true} path="/item/:groupId/:postId" render={match=><Listing match={match} userInfo={userInfo}/>}/>

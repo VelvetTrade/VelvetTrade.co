@@ -20,6 +20,9 @@ function RSNav (props) {
               <RSNavLink to="/createGroup" tag={RRNavLink}>Create a Group</RSNavLink>
             </NavItem>
             <NavItem>
+              <RSNavLink to="/findGroup" tag={RRNavLink}>Find a Group</RSNavLink>
+            </NavItem>
+            <NavItem>
               <RSNavLink href="https://github.com/VelvetTrade/VelvetTrade.co">GitHub</RSNavLink>
             </NavItem>
             
