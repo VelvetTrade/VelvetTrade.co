@@ -12,7 +12,7 @@ class Homepage extends React.Component {
     this.state = {
       activeTab: 'none',
       groupTabNames: [],
-      posts: [],
+      posts: null,
       redirect: ""
     }
   }
@@ -43,8 +43,11 @@ class Homepage extends React.Component {
   }
 
   changeTab(tab) {
-      this.setState({activeTab: tab})
-      this.getAllPosts(tab);
+      this.setState({
+        activeTab: tab,
+        posts: null
+      })
+      this.getAllPosts(tab).then(posts=>this.setState({posts}));
   }
 
   makeGroupTabs(userGroups) {
