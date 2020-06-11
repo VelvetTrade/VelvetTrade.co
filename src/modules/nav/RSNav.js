@@ -24,29 +24,31 @@ function RSNav (props) {
             </NavItem>
             
           </Nav>
-          {props.userInfo ? 
-            <UncontrolledDropdown nav inNavbar>
-              <DropdownToggle nav caret>
-                {props.userInfo.username}
-              </DropdownToggle>
-              <DropdownMenu right>
-                <DropdownItem>
-                  <RSNavLink to="/test" tag={RRNavLink}>Profile</RSNavLink>
-                </DropdownItem>
-                <DropdownItem>
-                  <RSNavLink to="/test" tag={RRNavLink}>My Listings</RSNavLink>
-                </DropdownItem>
-                <DropdownItem>
-                  <RSNavLink to="/test" tag={RRNavLink}>My Groups</RSNavLink>
-                </DropdownItem>
-                <DropdownItem divider />
-                <DropdownItem onClick={()=>props.setUserInfo(null)}>
-                  Sign Out
-                </DropdownItem>
-              </DropdownMenu>
-            </UncontrolledDropdown>
-            : <RSNavLink to="/login" tag={RRNavLink}>Login</RSNavLink>
-          }
+          <NavItem style={{"list-style-type": "none"}}>
+            {props.userInfo ? 
+              <UncontrolledDropdown nav inNavbar>
+                <DropdownToggle nav caret>
+                  {props.userInfo.username}
+                </DropdownToggle>
+                <DropdownMenu right>
+                  <DropdownItem>
+                    <RSNavLink to="/test" tag={RRNavLink}>Profile</RSNavLink>
+                  </DropdownItem>
+                  <DropdownItem>
+                    <RSNavLink to="/test" tag={RRNavLink}>My Listings</RSNavLink>
+                  </DropdownItem>
+                  <DropdownItem>
+                    <RSNavLink to="/test" tag={RRNavLink}>My Groups</RSNavLink>
+                  </DropdownItem>
+                  <DropdownItem divider />
+                  <DropdownItem onClick={()=>props.setUserInfo(null)}>
+                    Sign Out
+                  </DropdownItem>
+                </DropdownMenu>
+              </UncontrolledDropdown>
+              : <RSNavLink to="/login" tag={RRNavLink}>Login</RSNavLink>
+            }
+          </NavItem>
         </Collapse>
       </Navbar>
     </div>
