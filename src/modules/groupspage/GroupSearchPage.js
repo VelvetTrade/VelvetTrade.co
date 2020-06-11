@@ -56,7 +56,7 @@ class GroupSearchPage extends React.Component {
   if(this.state.results.length === 0) return <p>No results found for '{this.state.lastSearch}'</p>
     else return this.state.results.map(group => (
       <div className="groupDisplayDiv" key={group.id}>
-        <Link to={`/group/${group.id}`}><h3>{`${group.name}(${group.id})`}</h3></Link>
+        <Link to={`/group/${group.id}`}><h3>{`${group.name}`}</h3></Link>
         <p>{`${group.members.length} Member${group.members.length === 1 ? '' : 's'}`}</p>
         <p>{group.description}</p>
       </div>
