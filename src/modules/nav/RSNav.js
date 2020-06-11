@@ -21,34 +21,36 @@ function RSNav (props) {
         <Collapse isOpen={isOpen} navbar>
           <Nav className="mr-auto" navbar>
             <NavItem>
-              <RSNavLink to="createGroup" tag={RRNavLink}>Create a Group</RSNavLink>
+              <RSNavLink to="/createGroup" tag={RRNavLink}>Create a Group</RSNavLink>
             </NavItem>
             <NavItem>
               <RSNavLink href="https://github.com/VelvetTrade/VelvetTrade.co">GitHub</RSNavLink>
             </NavItem>
             
           </Nav>
-          {/* {this.props.userInfo ? 
+          {props.userInfo ? 
             <UncontrolledDropdown nav inNavbar>
               <DropdownToggle nav caret>
-                Options
+                {props.userInfo.username}
               </DropdownToggle>
               <DropdownMenu right>
                 <DropdownItem>
-                  Option 1
+                  <RSNavLink to="/test" tag={RRNavLink}>Profile</RSNavLink>
                 </DropdownItem>
                 <DropdownItem>
-                  Option 2
+                  <RSNavLink to="/test" tag={RRNavLink}>My Listings</RSNavLink>
+                </DropdownItem>
+                <DropdownItem>
+                  <RSNavLink to="/test" tag={RRNavLink}>My Groups</RSNavLink>
                 </DropdownItem>
                 <DropdownItem divider />
-                <DropdownItem>
-                  Reset
+                <DropdownItem onClick={()=>props.setUserInfo(null)}>
+                  Sign Out
                 </DropdownItem>
               </DropdownMenu>
             </UncontrolledDropdown>
-            : <NavLink href="#" onClick={(()=>setRedirectLink('/login')).bind(this)}>Login</NavLink>
-          } */}
-          <RSNavLink to="login" tag={RRNavLink}>Login</RSNavLink>
+            : <RSNavLink to="/login" tag={RRNavLink}>Login</RSNavLink>
+          }
         </Collapse>
       </Navbar>
     </div>
