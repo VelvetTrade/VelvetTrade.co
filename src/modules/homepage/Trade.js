@@ -5,6 +5,19 @@ import './../../css/Trade.css';
 const fetch = require('node-fetch');
 
 class Trade extends React.Component {
+  constructor(props) {
+    super(props);
+    
+    this.state = {
+      item1: null,
+      user1: "",
+      item2: null,
+      user2: "",
+      attemptStatus: "",
+    }
+  }
+
+
   render() {
     return (
       <div className='grid-container'>

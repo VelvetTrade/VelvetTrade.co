@@ -50,6 +50,7 @@ function App() {
           <Route exact={true} path="/login" render={()=><LoginPage userInfo={userInfo} setUserInfo={info=>setUserInfo(info)}/>}/>
           <Route exact={true} path="/group/:groupId" render={match=><GroupDetailPage userInfo={userInfo} match={match} setUserInfo={info=>setUserInfo(info)}/>}/>
           <Route exact={true} path="/item/:groupId/:postId" render={match=><Listing match={match}/>}/>
+          <Route exact={true} path="/trade/:groupId1/:postId1/groupId2/:postId2" render={match=><Listing match={match}/>}/>
           <Route exact={true} path="/test" render={()=><h1>test</h1>}/>
         </main>
       </Router>
