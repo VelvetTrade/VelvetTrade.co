@@ -159,9 +159,8 @@ class Trade extends React.Component {
           </div>
 
           <div className='controls'>
-            <input type='checkbox' title='Ready?' />
-            <button>Trade!</button>
-            <input type='checkbox' title='Ready?' />
+            <button>Accept Offer!</button>
+            <button>Reject Offer!</button>
           </div>
 
           <div className='rightItem'>
