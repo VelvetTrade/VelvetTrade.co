@@ -16,14 +16,15 @@ class CreateListingPage extends React.Component {
       price: "",
       desire: "",
       attemptStatus: "",
-      description: ""
+      description: "",
+      newPostID: ""
     }
   }
 
   onSubmit(e) {
     e.preventDefault();
     // call to validate
-    const targetURL = CONFIG.apiURL + `/createNewPosting`
+    const targetURL = CONFIG.apiURL + `/createNewPosting/${this.props.routeInfo.match.params.groupId}`
 
     let headers = Object.assign(CONFIG.corsHeader)
     headers['Content-Type'] = "application/json"
@@ -48,8 +49,14 @@ class CreateListingPage extends React.Component {
           this.setState({attemptStatus: `Network Failure: Status ${res.status}, server may be down.`})
         }
         else {
-          this.setState({attemptStatus: "finished"})
+          return res.json()
         }
+      })
+      .then(json => {
+        if(json != null) this.setState({
+          attemptStatus: "finished",
+          newPostID: json.id
+        })
       })
   }
 
@@ -64,7 +71,7 @@ class CreateListingPage extends React.Component {
 
     if(this.state.attemptStatus === "finished")
       return (
-        <Redirect to="/"/>
+        <Redirect to={this.state.newPostID ? `/item/${this.props.routeInfo.match.params.groupId}/${this.state.newPostID}` : "/"}/>
       )
 
     return (

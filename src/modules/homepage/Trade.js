@@ -147,7 +147,7 @@ class Trade extends React.Component {
     this.setState({tradeStatus: 'pending'})
     fetch(targetURL, {headers: CONFIG.corsHeader, method: "POST"})
       .then(res => {
-        if(res.status != 200) {
+        if(res.status !== 200) {
           this.setState({
             tradeStatus: "failed",
             error: res.message
@@ -165,7 +165,24 @@ class Trade extends React.Component {
 
   // Activated when the reject button is pressed
   reject() {
-    
+    const targetURL = CONFIG.apiURL + `/deletePosting/${this.props.match.match.params.groupId}/${this.state.item2.id}`
+    this.setState({tradeStatus: 'pending'})
+    fetch(targetURL, {headers: CONFIG.corsHeader, method: "POST"})
+      .then(res => {
+        if(res.status !== 200) {
+          this.setState({
+            tradeStatus: "failed",
+            error: res.message
+          })
+        }
+        else this.setState({tradeStatus: "rejected"})
+      })
+      .catch(error => {
+        this.setState({
+          tradeStatus: "failed",
+          error: error.message
+        })
+      })
   }
 
   makeTradePendingDiv (status) {
