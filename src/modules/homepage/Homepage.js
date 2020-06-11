@@ -104,7 +104,8 @@ class Homepage extends React.Component {
         <CardImg top width="100%" src="" alt={`img<${post.itemTitle}>`} />
         <CardBody>
           <CardTitle><Link to={`/item/${this.state.activeTab}/${post.id}`}>{post.itemTitle}</Link></CardTitle>
-          <CardSubtitle>{`Looking for: ${post.description}`}</CardSubtitle>
+          <CardSubtitle>{`Price: ${post.price}`}</CardSubtitle>
+          <CardSubtitle>{`Looking for: ${post.desiredItems}`}</CardSubtitle>
           <CardText>{post.description}</CardText>
         </CardBody>
       </Card>

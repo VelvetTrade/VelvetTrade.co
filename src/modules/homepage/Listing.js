@@ -149,8 +149,8 @@ class Listing extends React.Component {
                     >
                       Make Offer
                     </Button>
-                    {this.props.userInfo ? null : <p>Sign in to make an offer!</p> }
-                    {this.props.userInfo && this.state.item && this.props.userInfo.id === this.state.item.userId ? <p>Cannot make an offer on your own post</p> : null}
+                    {this.props.userInfo ? null : <p style={{color:"red"}}>You need to sign in to make an offer.</p> }
+                    {this.props.userInfo && this.state.item && this.props.userInfo.id === this.state.item.userId ? <p style={{color:"red"}}>Cannot make an offer on your own post</p> : null}
                   </div>
               </div>
             </div>

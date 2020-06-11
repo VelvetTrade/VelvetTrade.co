@@ -13,10 +13,11 @@ class GroupSearchPage extends React.Component {
     super(props);
 
     this.state = {
+      lastSearch: "",
       searchBar: "",
       searchStatus: "initial",
       error: "",
-      results: []
+      results: null
     };
     
   }
@@ -28,7 +29,7 @@ class GroupSearchPage extends React.Component {
     e.preventDefault();
     if(!this.state.searchBar) return;
 
-
+    this.setState({lastSearch: this.state.searchBar})
     const targetURL = CONFIG.apiURL + `/searchByName/${this.state.searchBar}`
     fetch(targetURL, {headers: CONFIG.corsHeader})
       .then(res => {
@@ -50,9 +51,9 @@ class GroupSearchPage extends React.Component {
   }
 
   renderResults () {
-    // if(this.state.searchStatus === "initial") return null
+    if(this.state.results === null) return null
     // else if(this.state.searchStatus === "pending") return <Spinner/>
-    if(this.state.results.length === 0) return <p>No results found</p>
+  if(this.state.results.length === 0) return <p>No results found for '{this.state.lastSearch}'</p>
     else return this.state.results.map(group => (
       <div className="groupDisplayDiv" key={group.id}>
         <Link to={`/group/${group.id}`}><h3>{`${group.name}(${group.id})`}</h3></Link>
