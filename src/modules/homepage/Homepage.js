@@ -1,6 +1,6 @@
 import React from 'react';
 import '../../css/HomePage.css';
-import { Link } from 'react-router-dom'
+import { Link, Redirect } from 'react-router-dom'
 import { TabPane, Nav, NavItem, NavLink, Card, Button, CardTitle, CardText, CardImg, CardBody, CardSubtitle } from 'reactstrap';
 import CONFIG from '../config'
 
@@ -13,6 +13,7 @@ class Homepage extends React.Component {
       activeTab: 'none',
       groupTabNames: [],
       posts: [],
+      redirect: ""
     };
 
     
@@ -107,6 +108,8 @@ class Homepage extends React.Component {
   }
 
   render() {
+    if(this.state.redirect) return <Redirect to={this.state.redirect}/>
+
     if(!this.props.userInfo)
       return (
         <div className="Homepage">
@@ -118,6 +121,7 @@ class Homepage extends React.Component {
       return (
         <div className="Homepage">
           <p>You are currently not part of a group.</p>
+          <Link to="/createGroup">Create A Group!</Link>
         </div> 
       )
 
