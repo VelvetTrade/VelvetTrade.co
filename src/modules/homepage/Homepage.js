@@ -131,7 +131,7 @@ class Homepage extends React.Component {
     if(!this.props.userInfo)
       return (
         <div className="Homepage">
-          <p>Log in to see listings!</p>
+          <Link to="/login">Log in </Link>to see listings!
         </div> 
       )
 

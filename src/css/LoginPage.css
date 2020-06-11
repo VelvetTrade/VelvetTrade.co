@@ -1,3 +1,24 @@
-Button {
-  margin: 10px;
+#buttonsDiv {
+  width: 50%;
+  padding: 15px;
+  margin: auto;
+  overflow-x: auto;
+  white-space: nowrap; 
+}
+
+#signupButton {
+  float:left
+}
+
+#submitButton {
+  float:right
+}
+
+#loginForm {
+  width: 35%;
+  margin: auto;
+  margin-top: 100px;
+  padding: 30px;
+  background-color: azure;
+  border: 5px solid lightblue;
 }

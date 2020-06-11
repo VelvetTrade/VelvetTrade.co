@@ -60,7 +60,8 @@ class LoginPage extends React.Component {
 
     return (
       <div className="LoginPage">
-        <Form onSubmit={e=>this.onSubmit(e)}>
+        <Form onSubmit={e=>this.onSubmit(e)} id="loginForm">
+          <h2>Log in to VelvetTrade</h2>
           <FormGroup>
             <Label for="username">UserName</Label>
             <Input type="text" name="username" id="username" placeholder="Your Velvet UserName" onChange={e=>this.setState({username: e.target.value})}/>
@@ -70,11 +71,10 @@ class LoginPage extends React.Component {
             <Input type="password" name="password" id="password" placeholder="Password" onChange={e=>this.setState({password: e.target.value})} />
           </FormGroup>
           {this.state.attemptStatus ? <FormText color="danger">{this.state.attemptStatus}</FormText> : null}
-          <FormGroup>
-            <Button type="button" onClick={() => this.setState({attemptStatus:"signup"})}>Sign Up</Button>
-
-            <Button type="submit">Login</Button>
-          </FormGroup>
+          <div id="buttonsDiv">
+            <div id="signupButton"><Button type="button" onClick={() => this.setState({attemptStatus:"signup"})}>Sign Up</Button></div>
+            <div id="submitButton"><Button type="submit">Login</Button></div>
+          </div>
         </Form>
       </div>
     );

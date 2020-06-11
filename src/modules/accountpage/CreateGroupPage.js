@@ -36,6 +36,7 @@ class createGroupPage extends React.Component {
       password: this.state.password,
       isPrivate: this.state.isPrivate,
       description: this.state.description,
+      userId: this.props.userInfo.id
     }
     
     fetch(targetURL, {
@@ -45,13 +46,21 @@ class createGroupPage extends React.Component {
     }).then(res => {
         if(res.status === 400) {
           this.setState({attemptStatus: "Create Group failed."})
+          return Promise.resolve(null)
         }
         else if(res.status !== 200 ) {
           this.setState({attemptStatus: `Network Failure: Status ${res.status}, server may be down.`})
+          return Promise.resolve(null)
         }
         else {
-          this.setState({attemptStatus: "finished"})
+          return res.json()
         }
+      })
+      .then(json => {
+        this.setState({
+          attemptStatus: "finished",
+          redirectTo: json.id,
+        })
       })
   }
 
@@ -66,7 +75,7 @@ class createGroupPage extends React.Component {
 
     if(this.state.attemptStatus === "finished")
       return (
-        <Redirect to="/"/>
+        <Redirect to={`/group/${this.state.redirectTo}`}/>
       )
 
     return (
