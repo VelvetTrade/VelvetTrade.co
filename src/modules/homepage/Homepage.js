@@ -14,8 +14,7 @@ class Homepage extends React.Component {
       groupTabNames: [],
       posts: [],
       redirect: ""
-    };
-
+    }
   }
 
   componentDidMount() {

@@ -1,0 +1,11 @@
+.image {
+  padding: 50px;
+  margin: 50px;
+  float: left;
+}
+
+.description {
+  padding: 50px;
+  margin: 50px;
+  float: right;
+}
