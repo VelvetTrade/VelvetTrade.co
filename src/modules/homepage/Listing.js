@@ -78,7 +78,6 @@ class Listing extends React.Component {
               this.setState({ attemptStatus: `Network Failure: ${error.message}` });
             })
           })
-          
     }
 
     render() {
