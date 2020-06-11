@@ -4,8 +4,43 @@
   float: left;
 }
 
+.offerImg {
+  float:left;
+  width: 100px;
+  height: 100px;
+  background-color: lightgray;
+}
+
+.main {
+  overflow-x: auto;
+  white-space: nowrap; 
+}
+
+.offerContainer {
+  overflow-x: auto;
+  white-space: nowrap; 
+}
+
+.offerDetails {
+  width: 80%;
+  float:right
+}
+
 .description {
   padding: 50px;
   margin: 50px;
   float: right;
+}
+
+.offers {
+  margin: 10px;
+  padding: 15px;
+}
+
+#offerTitle {
+  text-align: left;
+}
+
+.offerDetailText {
+  text-align: left;
 }

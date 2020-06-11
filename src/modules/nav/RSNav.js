@@ -11,7 +11,7 @@ function RSNav (props) {
     
     <div>
       <Navbar color="light" light expand="md">
-        <img style={{"margin-right":10}}id="logo" width="30" height="30" src="https://cdn.discordapp.com/attachments/695048840532983878/720533479313506397/logo.svg"></img>
+        <img style={{marginRight:10}} id="logo" width="30" height="30" alt="" src="https://cdn.discordapp.com/attachments/695048840532983878/720533479313506397/logo.svg"></img>
         <NavbarBrand to="/" tag={RRNavLink}>VelvetTrade</NavbarBrand>
         <NavbarToggler onClick={toggle} />
         <Collapse isOpen={isOpen} navbar>
@@ -24,7 +24,7 @@ function RSNav (props) {
             </NavItem>
             
           </Nav>
-          <NavItem style={{"list-style-type": "none"}}>
+          <NavItem style={{listStyleType: "none"}}>
             {props.userInfo ? 
               <UncontrolledDropdown nav inNavbar>
                 <DropdownToggle nav caret>
