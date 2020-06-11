@@ -95,7 +95,7 @@ class Listing extends React.Component {
                     <li>{this.state.item.description}</li>
                     <li>Looking for: {this.state.item.desiredItems}</li>
                 </ul>
-                <button>Trade Item</button>
+                <button>Make offer</button>
             </div>
           </div>
         )
