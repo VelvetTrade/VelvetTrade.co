@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import './../../css/App.css';
 import './../../css/Listing.css';
 import CONFIG from '../config';
@@ -12,6 +13,7 @@ class Listing extends React.Component {
       this.state = {
         item: null,
         user: "",
+        offers: "",
         attemptStatus: "",
       }
     }
@@ -75,10 +77,46 @@ class Listing extends React.Component {
               console.error(error);
               this.setState({ attemptStatus: `Network Failure: ${error.message}` });
             })
+            .then(json => {
+              console.log(this.state.item);
+              console.log("start");
+              targetURL = CONFIG.apiURL + `/getPostingsByIds/${this.state.groupId}/`;
+              for(let i = 0; i < this.state.item.offers; i++) {
+                targetURL = targetURL.concat(`,${this.state.item.offers[i]}`);
+                console.log(targetURL);
+              }
+
+              // Fetch Offers info
+              console.log("end");
+              console.log(targetURL)
+              fetch(targetURL, { headers: CONFIG.corsHeader })
+                .then(res => {
+                  if(res.status === 404) {
+                    this.setState({ attemptStatus: "Item not found" });
+                  }
+                  else if(res.status !== 200 ) {
+                    this.setState({ attemptStatus: `Network Failure: Status ${res.status}, the server may be down.` });
+                  }
+                  return res.json();
+                })
+                .then(json => {
+                  console.log("res: " + json)
+                  if(!json) this.setState({ ttemptStatus: "Item not found" })
+                  else {  
+                    this.setState({ offers: json });
+                    this.setState({ attemptStatus: "finished" });
+                  }
+                })
+                .catch(error => {
+                  console.error(error);
+                  this.setState({ attemptStatus: `Network Failure: ${error.message}` });
+                })
+            })
           })
     }
 
     render() {
+      console.log(this.state);
       if(this.state.item != null) {
         return (
           <div className='Listing'>
