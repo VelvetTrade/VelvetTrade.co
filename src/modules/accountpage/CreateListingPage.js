@@ -5,18 +5,17 @@ import CONFIG from '../config'
 
 const fetch = require('node-fetch');
 
-class createGroupPage extends React.Component {
+class CreateListingPage extends React.Component {
   constructor(props) {
 
     super(props);
     
     this.state = {
       userInfo: props.userInfo,
-      username: "",
-      password: "",
-      isPrivate: false,
+      name: "",
+      price: "",
+      desire: "",
       attemptStatus: "",
-      isPrivate: "",
       description: ""
     }
   }
@@ -24,24 +23,22 @@ class createGroupPage extends React.Component {
   onSubmit(e) {
     e.preventDefault();
     // call to validate
-    if(this.state.password !== this.state.confirmpassword) {
-      this.setState({attemptStatus: "Password does not match confirmpassword"})
-      return;
-    }
-    const targetURL = CONFIG.apiURL + `/createGroup`
+    const targetURL = CONFIG.apiURL + `/createNewPosting`
 
     let headers = Object.assign(CONFIG.corsHeader)
     headers['Content-Type'] = "application/json"
     let body = {
+      userId: this.props.userInfo.id,
       name: this.state.username,
-      password: this.state.password,
-      isPrivate: this.state.isPrivate,
       description: this.state.description,
+      price: this.state.price,
+      isOffer: false,
+      desiredItems: this.state.desire,
     }
     
     fetch(targetURL, {
-      headers: CONFIG.corsHeader,
       method: "POST",
+      headers: CONFIG.corsHeader,
       body: JSON.stringify(body)
     }).then(res => {
         if(res.status === 400) {
@@ -60,7 +57,7 @@ class createGroupPage extends React.Component {
     if(!this.props.userInfo)
       return (
         <div className="createGroupPage">
-          <p>You must be signed in to create a group</p>
+          <p>You must be signed in to create a listing</p>
           <Link to="/">Back to Home Page</Link>
         </div>
       )
@@ -72,36 +69,31 @@ class createGroupPage extends React.Component {
 
     return (
       <div className="createGroupPage">
-        <h4>Create New Group</h4>
+        <h4>Create New Post</h4>
+        <p>{`Posting to ${this.props.routeInfo.match.params.groupId}`}</p>
         <Form onSubmit={e=>this.onSubmit(e)}>
           <FormGroup row>
-            <Label for="username" sm={2}>Group Name</Label>
+            <Label for="name" sm={2}>Item Name</Label>
             <Col sm={10}>
-              <Input type="text" name="username" id="username" placeholder="Name of your Group" onChange={e=>this.setState({username: e.target.value})}/>
+              <Input type="text" name="name" id="name" placeholder="Short Phrase describing your item" onChange={e=>this.setState({name: e.target.value})}/>
             </Col>
           </FormGroup>
           <FormGroup row>
-            <Label for="password" sm={2}>Password</Label>
+            <Label for="price" sm={2}>Price</Label>
             <Col sm={10}>
-              <Input type="password" name="password" id="password" placeholder="Password" onChange={e=>this.setState({password: e.target.value})} />
+              <Input type="text" name="price" id="price" placeholder="price" onChange={e=>this.setState({price: e.target.value})} />
             </Col>
           </FormGroup>
           <FormGroup row>
-            <Label for="confirmpassword" sm={2}>Confirm Password</Label>
+            <Label for="desire" sm={2}>Desired Items</Label>
             <Col sm={10}>
-              <Input type="password" name="confirmpassword" id="confirmpassword" placeholder="Confirm Password" onChange={e=>this.setState({confirmpassword: e.target.value})} />
+              <Input type="text" name="desire" id="desire" placeholder="Items that you want to trade for" onChange={e=>this.setState({desire: e.target.value})} />
             </Col>
           </FormGroup>
           <FormGroup row>
             <Label for="description" sm={2}>Description</Label>
             <Col sm={10}>
-              <Input type="text" name="description" id="description" placeholder="description" onChange={e=>this.setState({description: e.target.value})} />
-            </Col>
-          </FormGroup>
-          <FormGroup row>
-            <Label for="isPrivate" sm={2}>isPrivate</Label>
-            <Col sm={1}>
-              <Input type="checkbox" name="isPrivate" id="isPrivate" onChange={e=>this.setState({isPrivate: !this.state.isPrivate})} />
+              <Input type="textarea" name="description" id="description" placeholder="description" onChange={e=>this.setState({description: e.target.value})} />
             </Col>
           </FormGroup>
           {this.state.attemptStatus ? <FormText color="danger">{this.state.attemptStatus}</FormText> : null}
@@ -114,4 +106,4 @@ class createGroupPage extends React.Component {
   }
 }
 
-export default createGroupPage;
+export default CreateListingPage;

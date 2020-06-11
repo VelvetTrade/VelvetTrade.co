@@ -1,0 +1,10 @@
+.ListingCard {
+  margin: 10px;
+  font-weight: normal;
+}
+
+table
+{
+    table-layout: fixed;
+    width: 700px;
+}

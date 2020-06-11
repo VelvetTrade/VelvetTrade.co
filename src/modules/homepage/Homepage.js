@@ -1,7 +1,7 @@
 import React from 'react';
 import '../../css/HomePage.css';
 import { Link, Redirect } from 'react-router-dom'
-import { TabPane, Nav, NavItem, NavLink, Card, Button, CardTitle, CardText, CardImg, CardBody, CardSubtitle } from 'reactstrap';
+import { TabPane, Nav, NavItem, NavLink, Card, Button, CardTitle, CardText, CardImg, CardBody, CardSubtitle, Col, Row } from 'reactstrap';
 import CONFIG from '../config'
 
 class Homepage extends React.Component {
@@ -16,7 +16,6 @@ class Homepage extends React.Component {
       redirect: ""
     };
 
-    
   }
 
   componentDidMount() {
@@ -36,7 +35,7 @@ class Homepage extends React.Component {
               groupTabNames: tabNames,
               activeTab: this.props.userInfo.groups[0],
             })
-            return this.getAllPosts(tabNames[0]);
+            return this.getAllPosts(this.props.userInfo.groups[0]);
         })
         .then(posts => {
           console.log(posts)
@@ -82,17 +81,34 @@ class Homepage extends React.Component {
   makeCards (posts) {
     if(!posts) return <p>Loading Posts...</p>
     if(posts.length === 0) return <p>No posts in this group.</p>
-    return posts.map(post => (
-      <Card key={post.Id}>
-        <CardImg top width="100%" src="" alt={post.itemTitle} />
+    let allCards = posts.map(post => (
+      <Card key={post.Id} className="ListingCard">
+        <CardImg top width="100%" src="" alt={`img<${post.itemTitle}>`} />
         <CardBody>
           <CardTitle><Link to={`/item/${this.state.activeTab}/${post.id}`}>{post.itemTitle}</Link></CardTitle>
           <CardSubtitle>{`Looking for: ${post.description}`}</CardSubtitle>
           <CardText>{post.description}</CardText>
-          <Button>Button</Button>
         </CardBody>
       </Card>
     ))
+    let finalCardStack = [];
+    while(allCards.length > 0) {
+      let row = [];
+      for(let i = 0; i < 2; i++) {
+        if(allCards.length <= 0) break;
+        row.push(
+          <th key={i}>{allCards.shift()}</th>
+        )
+      }
+      finalCardStack.push(<tr key={allCards.length}>{row}</tr>)
+    }
+    return (
+      <table>
+        <tbody>
+          {finalCardStack}
+        </tbody>
+      </table>
+    )
   }
 
   makeTabContent (groupId) {
@@ -132,6 +148,8 @@ class Homepage extends React.Component {
           {this.makeGroupTabs(this.props.userInfo.groups)}
         </Nav>
         <Link to={`/group/${this.state.activeTab}`}>Group Details</Link>
+        <br/>
+        <Link to={`/createListing/${this.state.activeTab}`}>Make a New Listing</Link>
         {this.makeCards(this.state.posts)}
       </div>
     );
