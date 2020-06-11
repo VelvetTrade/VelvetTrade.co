@@ -24,8 +24,6 @@ class Trade extends React.Component {
     let groupId = this.props.match.match.params.groupId;
     let postId1 = this.props.match.match.params.postId1;
     let postId2 = this.props.match.match.params.postId2;
-    let item1 = null;
-    let user1 = "";
 
     // Fetch item1 data
     let targetURL = CONFIG.apiURL + `/getPostingById/${groupId}/${postId1}`;

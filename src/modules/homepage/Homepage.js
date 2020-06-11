@@ -1,7 +1,7 @@
 import React from 'react';
-import '../../css/HomePage.css';
+import '../../css/Homepage.css';
 import { Link, Redirect } from 'react-router-dom'
-import { TabPane, Nav, NavItem, NavLink, Card, Button, CardTitle, CardText, CardImg, CardBody, CardSubtitle, Col, Row } from 'reactstrap';
+import { TabPane, Nav, NavItem, NavLink, Card, CardTitle, CardText, CardImg, CardBody, CardSubtitle} from 'reactstrap';
 import CONFIG from '../config'
 
 class Homepage extends React.Component {
@@ -37,7 +37,6 @@ class Homepage extends React.Component {
             return this.getAllPosts(this.props.userInfo.groups[0]);
         })
         .then(posts => {
-          console.log(posts)
           this.setState({posts})
         })
     }
@@ -75,12 +74,16 @@ class Homepage extends React.Component {
           }
           else return res.json()
       })
+      .then(post=>{
+        if(post.isOffer || post.acceptedOfferId) return Promise.resolve(null);
+        return Promise.resolve(post)
+      })
   }
 
   makeCards (posts) {
     if(!posts) return <p>Loading Posts...</p>
     if(posts.length === 0) return <p>No posts in this group.</p>
-    let allCards = posts.map(post => (
+    let allCards = posts.map(post => post ? (
       <Card key={post.Id} className="ListingCard">
         <CardImg top width="100%" src="" alt={`img<${post.itemTitle}>`} />
         <CardBody>
@@ -89,11 +92,11 @@ class Homepage extends React.Component {
           <CardText>{post.description}</CardText>
         </CardBody>
       </Card>
-    ))
+    ) : null)
     let finalCardStack = [];
     while(allCards.length > 0) {
       let row = [];
-      for(let i = 0; i < 2; i++) {
+      for(let i = 0; i < 4; i++) {
         if(allCards.length <= 0) break;
         row.push(
           <th key={i}>{allCards.shift()}</th>

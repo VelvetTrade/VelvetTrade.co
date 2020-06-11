@@ -1,16 +1,11 @@
 import React, { useState } from 'react'
-import { Nav, NavItem, NavLink as RSNavLink, Dropdown, DropdownToggle, DropdownMenu, DropdownItem, Navbar, NavbarBrand, NavbarToggler, Collapse, UncontrolledDropdown, NavbarText } from 'reactstrap'
-import { Redirect, NavLink as RRNavLink } from 'react-router-dom';
+import { Nav, NavItem, NavLink as RSNavLink, DropdownToggle, DropdownMenu, DropdownItem, Navbar, NavbarBrand, NavbarToggler, Collapse, UncontrolledDropdown } from 'reactstrap'
+import { NavLink as RRNavLink } from 'react-router-dom';
 
 function RSNav (props) {
-  const [ dropdownOpen, toggleDropdown ] = useState(false)
-  const [ redirectLink, setRedirectLink ] = useState("")
 
   const [isOpen, setIsOpen] = useState(false);
-
   const toggle = () => setIsOpen(!isOpen);
-
-  if(redirectLink) return <Redirect to={redirectLink}/>
 
   return (
     

@@ -20,8 +20,6 @@ class Listing extends React.Component {
       console.log(this.props.match.match.params);
       let groupId = this.props.match.match.params.groupId;
       let postId = this.props.match.match.params.postId;
-      let item = null;
-      let user = "";
 
       // Fetch item data
       let targetURL = CONFIG.apiURL + `/getPostingById/${groupId}/${postId}`;

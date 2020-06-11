@@ -1,7 +1,6 @@
 import React from 'react';
-import '../../css/HomePage.css';
 import { Link, Redirect } from 'react-router-dom'
-import { TabPane, Nav, NavItem, NavLink, Card, Button, CardTitle, CardText, CardImg, CardBody, CardSubtitle } from 'reactstrap';
+import { Card, Button, CardTitle, CardText, CardImg, CardBody, CardSubtitle } from 'reactstrap';
 import CONFIG from '../config'
 
 const fetch = require('node-fetch')
