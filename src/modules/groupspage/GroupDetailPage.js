@@ -68,7 +68,12 @@ class GroupDetailPage extends React.Component {
         if(res.status !== 200) {
           return Promise.reject(res.message)
         }
-        else this.setState({redirect: "/"})
+        else {
+          let newUserInfo = Object.assign(this.props.userInfo);
+          newUserInfo.groups = newUserInfo.groups.filter(id => (id !== this.state.group.id))
+          this.props.setUserInfo(newUserInfo)
+          this.setState({redirect: "/"})
+        }
       })
       .catch(error => {
         this.setState({
@@ -87,7 +92,12 @@ class GroupDetailPage extends React.Component {
         if(res.status !== 200) {
           return Promise.reject(res.message)
         }
-        else this.setState({redirect: "/"})
+        else {
+          let newUserInfo = Object.assign(this.props.userInfo);
+          newUserInfo.groups.push(this.state.group.id);
+          this.props.setUserInfo(newUserInfo)
+          this.setState({redirect: "/"})
+        }
       })
       .catch(error => {
         this.setState({

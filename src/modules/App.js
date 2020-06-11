@@ -26,7 +26,7 @@ function App() {
           <Route exact={true} path="/findGroup" render={()=><GroupSearchPage userInfo={userInfo} />}/>
           <Route exact={true} path="/login" render={()=><LoginPage userInfo={userInfo} setUserInfo={info=>setUserInfo(info)}/>}/>
           <Route exact={true} path="/group/:groupId" render={routeInfo=><GroupDetailPage userInfo={userInfo} routeInfo={routeInfo} setUserInfo={info=>setUserInfo(info)}/>}/>
-          <Route exact={true} path="/item/:groupId/:postId" render={match=><Listing match={match} userInfo={userInfo}/>}/>
+          <Route exact={true} path="/item/:groupId/:postId" render={match=><Listing match={match} userInfo={userInfo} setUserInfo={info=>setUserInfo(info)}/>}/>
           <Route exact={true} path="/trade/:groupId/:postId1/:postId2" render={match=><Trade match={match} userInfo={userInfo}/>}/>
           <Route exact={true} path="/createListing/:groupId" render={routeInfo=><CreateListingPage userInfo={userInfo} routeInfo={routeInfo}/>}/>
           <Route exact={true} path="/createOffer/:groupId/:parentId" render={routeInfo=><CreateListingPage userInfo={userInfo} routeInfo={routeInfo}/>}/>
