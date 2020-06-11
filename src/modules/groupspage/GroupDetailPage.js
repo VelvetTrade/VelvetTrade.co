@@ -30,7 +30,6 @@ class GroupDetailPage extends React.Component {
         else return res.json()
       })
       .then(json => {
-        // if(!json) console.error(`Unable to fetch groups`)
         this.setState({
           group: json
         })
